@@ -2,23 +2,23 @@
 
 TodoList::TodoList(std::string name, std::string description)
 {
-    list_name = name;
-    list_description = description;
+    _list_name = name;
+    _list_description = description;
 }
 
 
 int TodoList::View_Todo_List_Items()
 {
 
-    if(TodoList::TodoTasks.empty())
+    if(TodoList::_TodoTasks.empty())
     {
         std::cout << "No items in this list." << std::endl;
         return 1;
     }
     std::cout << "List items:" << std::endl;
-    for(auto& item : TodoList::TodoTasks)
+    for(auto& item : TodoList::_TodoTasks)
     {
-        item.show();
+        item.Show();
     }
     std::cout << std::endl;
     return 0;
@@ -27,9 +27,9 @@ int TodoList::View_Todo_List_Items()
 int TodoList::View_Todo_List_Items_Short()
 {
     std::cout << "List items:" << std::endl;
-    for(auto& item : TodoList::TodoTasks)
+    for(auto& item : TodoList::_TodoTasks)
     {
-        item.show_short();
+        item.Show_Short();
     }
     std::cout << std::endl;
     return 0;
@@ -53,7 +53,7 @@ int TodoList::Add_Todo_Item()
     std::getline(std::cin, description);
 
     // Use emplace_back for this scenario instead of push_back
-    TodoTasks.emplace_back(name, description);
+    _TodoTasks.emplace_back(name, description);
     return 0;
 }
 
@@ -73,6 +73,12 @@ int TodoList::Edit_Todo_Item()
     std::string new_description;
 
     int index = Index_Of(ID);
+
+    if(index == -1)
+    {
+        std::cout << "Object not found" << std::endl;
+        return 1;
+    }
 
     int choice = -1;
 
@@ -105,14 +111,14 @@ int TodoList::Edit_Todo_Item()
             std::cout << "Enter a new name for the task:" << std::endl;
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::getline(std::cin, new_name);
-            TodoList::TodoTasks[index].task_name = new_name;
+            TodoList::_TodoTasks[index]._task_name = new_name;
             break;
 
         case 2:
             std::cout << "Enter a new description for the task:" << std::endl;
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::getline(std::cin, new_name);
-            TodoList::TodoTasks[index].task_description = new_description;
+            TodoList::_TodoTasks[index]._task_description = new_description;
             break;
 
         case 3:
@@ -146,12 +152,12 @@ int TodoList::Remove_Todo_Item()
         return 1;
     }
 
-    TodoList::TodoTasks.erase(TodoList::TodoTasks.begin() + index);
+    TodoList::_TodoTasks.erase(TodoList::_TodoTasks.begin() + index);
     return 0;
 }
 
 
-int TodoList::Mark_as_completed()
+int TodoList::Mark_As_Completed()
 {
     int ID;
 
@@ -170,7 +176,7 @@ int TodoList::Mark_as_completed()
         return 1;
     }
 
-    TodoList::TodoTasks[index].task_completion_status = true;
+    TodoList::_TodoTasks[index]._task_completion_status = true;
     return 0;
 }
 
@@ -179,9 +185,9 @@ int TodoList::Mark_as_completed()
 int TodoList::Index_Of(int ID)
 {
     int index = 0;
-    for(auto& item : TodoTasks)
+    for(auto& item : _TodoTasks)
     {
-        if(item.Id == ID)
+        if(item._Id == ID)
         {
             return index;
         }

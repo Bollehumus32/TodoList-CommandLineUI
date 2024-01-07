@@ -9,6 +9,17 @@
 
 std::vector<TodoList> TodoLists;
 
+void readInput(int& input) {
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cin >> input;
+}
+
+void readLine(std::string& input) {
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::getline(std::cin, input);
+}
+
+
 void menu(std::vector<std::string>& menu_choices)
 {
     if(menu_choices.empty())
@@ -29,8 +40,7 @@ int Create_List()
     std::string description;
 
     std::cout << "Enter a name for the list:" << std::endl;
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    std::getline(std::cin, name);
+    readLine(name);
 
     std::cout << "Enter a description for the list (optional):" << std::endl;
     std::getline(std::cin, description);
@@ -52,7 +62,7 @@ int View_Lists()
     std::cout << "---------- Lists ----------------" << std::endl;
     for(auto& list : TodoLists)
     {
-        std::cout << i << ". " << list.list_name << std::endl;
+        std::cout << i << ". " << list._list_name << std::endl;
     }
     std::cout << "---------------------------------" << std::endl;
 
@@ -71,8 +81,7 @@ int View_List_Contents()
         return 1;
     }
 
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    std::cin >> choice;
+    readInput(choice);
 
     TodoLists[choice-1].View_Todo_List_Items();
     return 0;
@@ -90,8 +99,7 @@ int Add_ItemWRAPPER()
         return 1;
     }
 
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    std::cin >> choice;
+    readInput(choice);
 
     TodoLists[choice-1].Add_Todo_Item();
     return 0;
@@ -108,8 +116,8 @@ int Edit_ItemWRAPPER()
     {
         return 1;
     }
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    std::cin >> choice;
+
+    readInput(choice);
 
     TodoLists[choice-1].Edit_Todo_Item();
     return 0;
@@ -128,8 +136,7 @@ int Remove_ItemWRAPPER()
         return 1;
     }
 
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    std::cin >> choice;
+    readInput(choice);
 
     TodoLists[choice-1].Remove_Todo_Item();
     return 0;
@@ -147,10 +154,9 @@ int Mark_Item_CompleteWRAPPER()
         return 1;
     }
 
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    std::cin >> choice;
+    readInput(choice);
 
-    TodoLists[choice-1].Mark_as_completed();
+    TodoLists[choice - 1].Mark_As_Completed();
     return 0;
 }
 

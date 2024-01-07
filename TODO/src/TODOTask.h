@@ -11,18 +11,19 @@
 class TodoTask
 {
 public:
-    int Id;
-    static std::atomic_uint32_t current_id;
+    // Public Variabes
+    int _Id;
+    static std::atomic_uint32_t _current_id;
     TodoTask(std::string name, std::string description);
-    std::string task_name;
-    bool task_completion_status;
-    std::string task_description;
+    std::string _task_name;
+    bool _task_completion_status;
+    std::string _task_description;
 
 
-    // Public functions for a single task:
-    void show() const;
-    void show_short() const;
-    bool empty() const;
+    // Public utility functions
+    void Show() const;
+    void Show_Short() const;
+    bool Empty() const;
 };
 
 

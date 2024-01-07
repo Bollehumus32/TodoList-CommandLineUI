@@ -9,12 +9,14 @@
 class TodoList
 {
 private:
+    // Private Utility function.
     int Index_Of(int ID);
 
 public:
-    std::string list_name;
-    std::string list_description;
-    std::vector<TodoTask> TodoTasks;
+    // Public Variables
+    std::string _list_name;
+    std::string _list_description;
+    std::vector<TodoTask> _TodoTasks;
 
     // Public Functions:
     TodoList(std::string name, std::string description);
@@ -23,7 +25,7 @@ public:
     int Add_Todo_Item();
     int Edit_Todo_Item();
     int Remove_Todo_Item();
-    int Mark_as_completed();
+    int Mark_As_Completed();
 };
 
 #endif //TODOLIST_H
